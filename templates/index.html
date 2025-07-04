@@ -84,8 +84,14 @@
       </div>
       <button type="button" onclick="addMenuItem()">➕ Add Another</button>
 
-      <label>Time of Day (0–23):</label>
-      <input type="number" name="time_of_day" min="0" max="23" required>
+      <label>Time of Day:</label>
+      <select name="time_of_day" required>
+        <option value="9">🌅 Morning (6–11 AM)</option>
+        <option value="12">🍽 Lunch (11 AM–2 PM)</option>
+        <option value="15">☀️ Afternoon (2–5 PM)</option>
+        <option value="18">🌇 Evening (5–8 PM)</option>
+        <option value="21">🌙 Night (8–12 AM)</option>
+      </select>
 
       <label>Kitchen Load:</label>
       <select name="kitchen_load" required>
