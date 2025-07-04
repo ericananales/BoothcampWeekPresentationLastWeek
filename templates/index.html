@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Restaurant Wait Time Estimator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 15px;
+      color: white;
+      width: 400px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+    }
+    input[type="submit"], button {
+      background: #28a745;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid white;
+      border-radius: 10px;
+    }
+    .menu-entry {
+      display: flex;
+      gap: 10px;
+    }
+    .menu-entry select,
+    .menu-entry input {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>⏳ Wait Time Estimator</h2>
+    <form method="POST">
+      <label>Menu Items:</label>
+      <div id="menu-container">
+        <div class="menu-entry">
+          <select name="menu_item[]" required>
+            <option value="Burger">🍔 Burger</option>
+            <option value="Pasta">🍝 Pasta</option>
+            <option value="Salad">🥗 Salad</option>
+            <option value="Pizza">🍕 Pizza</option>
+            <option value="Ramen">🍜 Ramen</option>
+            <option value="Sandwich">🥪 Sandwich</option>
+            <option value="Rice Meal">🍛 Rice Meal</option>
+            <option value="Fries">🍟 Fries</option>
+          </select>
+          <input type="number" name="num_items[]" min="1" placeholder="Qty" required>
+        </div>
+      </div>
+      <button type="button" onclick="addMenuItem()">➕ Add Another</button>
+
+      <label>Time of Day (0–23):</label>
+      <input type="number" name="time_of_day" min="0" max="23" required>
+
+      <label>Kitchen Load:</label>
+      <select name="kitchen_load" required>
+        <option value="1">🥱 1 - Very Low</option>
+        <option value="2">🙂 2 - Light</option>
+        <option value="3">😐 3 - Moderate</option>
+        <option value="4">😰 4 - Busy</option>
+        <option value="5">🔥 5 - Overloaded</option>
+      </select>
+
+      <input type="submit" value="Estimate Wait Time">
+    </form>
+
+    {% if result %}
+      <div class="result">{{ result|safe }}</div>
+    {% endif %}
+  </div>
+
+  <script>
+    function addMenuItem() {
+      const container = document.getElementById("menu-container");
+      const div = document.createElement("div");
+      div.className = "menu-entry";
+      div.innerHTML = `
+        <select name="menu_item[]" required>
+          <option value="Burger">🍔 Burger</option>
+          <option value="Pasta">🍝 Pasta</option>
+          <option value="Salad">🥗 Salad</option>
+          <option value="Pizza">🍕 Pizza</option>
+          <option value="Ramen">🍜 Ramen</option>
+          <option value="Sandwich">🥪 Sandwich</option>
+          <option value="Rice Meal">🍛 Rice Meal</option>
+          <option value="Fries">🍟 Fries</option>
+        </select>
+        <input type="number" name="num_items[]" min="1" placeholder="Qty" required>
+      `;
+      container.appendChild(div);
+    }
+  </script>
+</body>
+</html>
